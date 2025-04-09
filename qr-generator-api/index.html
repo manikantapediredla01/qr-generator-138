@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QR Code Generator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f6f0;
+      color: #333;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+    .container {
+      text-align: center;
+      background-color: #e6c7e6;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 2;
+    }
+    h1 {
+      color: #333;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 2px solid #333;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #555;
+    }
+    .qr-code {
+      margin-top: 20px;
+    }
+    .watermark {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 18px;
+      color: rgba(0, 0, 0, 0.2);
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      text-align: center;
+    }
+    .footer {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #333;
+      z-index: 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="watermark">MANIKANTA PEDIREDLAS QR GENERATOR</div>
+  <div class="container">
+    <h1>QR Code Generator</h1>
+    <p>Enter a URL to generate its QR code:</p>
+    <input type="text" id="urlInput" placeholder="Enter your URL here">
+    <button onclick="generateQRCode()">Generate QR Code</button>
+    <div class="qr-code" id="qrCode"></div>
+  </div>
+  <div class="footer">
+    &copy; 2025 This webpage belongs to "Manikanta Pediredla"
+  </div>
+
+  <script>
+    function generateQRCode() {
+      const url = document.getElementById('urlInput').value;
+      if (!url) {
+        alert('Please enter a URL');
+        return;
+      }
+      const qrCodeDiv = document.getElementById('qrCode');
+      qrCodeDiv.innerHTML = ''; // Clear previous QR code
+      const qrCodeImage = document.createElement('img');
+      qrCodeImage.src = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(url)}&size=200x200`;
+      qrCodeImage.alt = 'QR Code';
+      qrCodeDiv.appendChild(qrCodeImage);
+    }
+  </script>
+</body>
+</html>
